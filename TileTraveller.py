@@ -38,11 +38,26 @@ def room_description(tile):
 
 
 def move_rooms(tile, direction):
-    # commit
-    pass
+    """ Færir okkur milli kassa (tiles) """
+    if direction in room_directions(tile):
+        tiles = tile.split(',')
+        if direction == 'n':
+            tiles[1] = int(tiles[1]) + 1
+        if direction == 's':
+            tiles[1] = int(tiles[1]) - 1
+        if direction == 'e':
+            tiles[0] = int(tiles[0]) + 1
+        if direction == 'w':
+            tiles[0] = int(tiles[0]) - 1
+        return str(tiles[0]) + ',' + str(tiles[1])
+
+    else:
+        print("Not a valid direction!")
+        return tile
 
 
 def is_victory_condition(tile):
+    """ Skilar True ef við erum á lokareit """
     if tile == '3,1':
         result = True
     else:
@@ -54,4 +69,4 @@ tile = '1,1'
 while not is_victory_condition(tile):
     room_description(tile)
     direction = input("Direction: ")
-    move_rooms(tile, direction)
+    tile = move_rooms(tile, direction)
