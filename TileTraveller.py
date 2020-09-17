@@ -64,7 +64,6 @@ def move_rooms(tile, direction):
         if direction == 'w':
             tiles[0] = int(tiles[0]) - 1
         return str(tiles[0]) + ',' + str(tiles[1])
-
     else:
         print("Not a valid direction!")
         return tile
@@ -85,5 +84,4 @@ while not is_victory_condition(tile):
     direction = input("Direction: ")
     tile = move_rooms(tile, direction)
 
-
-Print("Victory!")
+print('Victory!')
