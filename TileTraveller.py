@@ -29,13 +29,13 @@ def room_directions(tile):
     if tile == '1,1':
         result = 'n'
     elif tile == '1,2':
-        result = 'nse'
+        result = 'nes'
     elif tile == '1,3':
-        result = 'se'
+        result = 'es'
     elif tile == '2,3':
         result = 'ew'
     elif tile == '3,3':
-        result = 'ws'
+        result = 'sw'
     elif tile == '3,2':
         result = 'ns'
     elif tile == '3,1':
@@ -64,6 +64,7 @@ def move_rooms(tile, direction):
         if direction == 'w':
             tiles[0] = int(tiles[0]) - 1
         return str(tiles[0]) + ',' + str(tiles[1])
+
     else:
         print("Not a valid direction!")
         return tile
@@ -82,6 +83,7 @@ tile = '1,1'
 while not is_victory_condition(tile):
     room_description(tile)
     direction = input("Direction: ")
-    tile = move_rooms(tile, direction)
+    tile = move_rooms(tile, direction.lower())
 
-print('Victory!')
+
+print("Victory!")
