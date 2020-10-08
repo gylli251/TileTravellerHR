@@ -99,9 +99,7 @@ def is_victory_condition(tile):
 
 def play():
     tile = '1,1'
-    coins = 0
-    valid_moves = 0
-    invalid_moves = 0
+    coins, valid_moves, invalid_moves = 0, 0, 0
     did_move = False
     while not is_victory_condition(tile):
         coins = room_description(tile, coins, did_move)
