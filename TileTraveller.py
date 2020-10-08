@@ -1,4 +1,5 @@
 # TileTraveller
+LEVER_ROOM = ['1,2', '2,2', '2,3', '3,2']
 
 
 def add_or(res):
@@ -47,8 +48,14 @@ def room_directions(tile):
     return result
 
 
-def room_description(tile):
+def room_description(tile, coins, did_move):
+    if did_move and tile in LEVER_ROOM:
+        answer = input("Pull a lever (y/n): ").lower()
+        if answer == "y":
+            coins += 1
+            print(f"You received 1 coin, your total is now {coins}.")
     print('You can travel: ' + yct(room_directions(tile)))
+    return coins
 
 
 def move_rooms(tile, direction):
@@ -63,11 +70,11 @@ def move_rooms(tile, direction):
             tiles[0] = int(tiles[0]) + 1
         if direction == 'w':
             tiles[0] = int(tiles[0]) - 1
-        return str(tiles[0]) + ',' + str(tiles[1])
+        return str(tiles[0]) + ',' + str(tiles[1]), True
 
     else:
         print("Not a valid direction!")
-        return tile
+        return tile, False
 
 
 def is_victory_condition(tile):
@@ -79,11 +86,16 @@ def is_victory_condition(tile):
     return result
 
 
-tile = '1,1'
-while not is_victory_condition(tile):
-    room_description(tile)
-    direction = input("Direction: ")
-    tile = move_rooms(tile, direction.lower())
+def main():
+    tile = '1,1'
+    coins = 0
+    did_move = False
+    while not is_victory_condition(tile):
+        coins = room_description(tile, coins, did_move)
+        direction = input("Direction: ")
+        tile, did_move = move_rooms(tile, direction.lower())
+
+    print(f"Victory! Total coins {coins}.")
 
 
-print("Victory!")
+main()
