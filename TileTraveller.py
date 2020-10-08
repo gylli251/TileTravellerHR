@@ -86,7 +86,7 @@ def is_victory_condition(tile):
     return result
 
 
-def main():
+def play():
     tile = '1,1'
     coins = 0
     did_move = False
@@ -96,6 +96,13 @@ def main():
         tile, did_move = move_rooms(tile, direction.lower())
 
     print(f"Victory! Total coins {coins}.")
+
+
+def main():
+    play_again = 'y'
+    while play_again == 'y':
+        play()
+        play_again = input("Play again (y/n): ").lower()
 
 
 main()
