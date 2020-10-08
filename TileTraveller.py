@@ -1,5 +1,14 @@
 # TileTraveller
+import random
+
+
 LEVER_ROOM = ['1,2', '2,2', '2,3', '3,2']
+NORTH = 'n'
+EAST = 'e'
+SOUTH = 's'
+WEST = 'w'
+YES = 'y'
+NO = 'n'
 
 
 def add_or(res):
@@ -50,7 +59,9 @@ def room_directions(tile):
 
 def room_description(tile, coins, did_move):
     if did_move and tile in LEVER_ROOM:
-        answer = input("Pull a lever (y/n): ").lower()
+        # answer = input("Pull a lever (y/n): ").lower()
+        answer = random.choice([YES, NO])
+        print(f"Pull a lever (y/n): {answer}")
         if answer == "y":
             coins += 1
             print(f"You received 1 coin, your total is now {coins}.")
@@ -89,16 +100,26 @@ def is_victory_condition(tile):
 def play():
     tile = '1,1'
     coins = 0
+    valid_moves = 0
+    invalid_moves = 0
     did_move = False
     while not is_victory_condition(tile):
         coins = room_description(tile, coins, did_move)
-        direction = input("Direction: ")
+        # direction = input("Direction: ")
+        direction = random.choice([NORTH, EAST, SOUTH, WEST])
+        print(f"Direction: {direction}")
         tile, did_move = move_rooms(tile, direction.lower())
+        if did_move:
+            valid_moves += 1
+        else:
+            invalid_moves += 1
 
-    print(f"Victory! Total coins {coins}.")
+    print(f"Victory! Total coins {coins}. Moves {valid_moves + invalid_moves}.")
 
 
 def main():
+    seed = int(input("Input seed: "))
+    random.seed(seed)
     play_again = 'y'
     while play_again == 'y':
         play()
